@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec ash-mailcap-autoview "$1" {{.CommentID}}
