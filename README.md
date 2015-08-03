@@ -5,7 +5,7 @@ Supplementary program for
 
 ## ArchLinux
 
-Via (AUR)[https://aur4.archlinux.org/packages/ash-mailcap-autoview] or self
+Via [AUR](https://aur4.archlinux.org/packages/ash-mailcap-autoview) or self
 built package:
 ```
 git clone https://github.com/seletskiy/ash-mailcap-autoview
