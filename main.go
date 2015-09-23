@@ -45,9 +45,13 @@ func main() {
 	reader := bufio.NewReader(file)
 	for {
 		line, err := reader.ReadString('\n')
-		//log.Printf("main.go:42 %#v", line)
 		if err != nil {
 			if err == io.EOF {
+				fmt.Printf(
+					"error: can't find comment with ID '%s'\n",
+					args["<comment-id>"].(string),
+				)
+
 				os.Exit(1)
 			}
 
