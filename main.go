@@ -25,7 +25,7 @@ Usage:
   $0 <file> <comment-id>
 `
 
-var reComment = regexp.MustCompile(`^#\s+\[(\d+)@\d+\]`)
+var reComment = regexp.MustCompile(`^(#\s+)(\[(\d+)@\d+\])`)
 
 func main() {
 	args, err := docopt.Parse(usage, nil, true, "1.0", false)
@@ -59,6 +59,12 @@ func main() {
 			os.Exit(2)
 		}
 
+		matches := reComment.FindStringSubmatch(line)
+		if len(matches) > 0 && matches[3] == args["<comment-id>"].(string) {
+			commentFound = true
+			line = reComment.ReplaceAllString(line, "$1\033[7m$2\033[0m")
+		}
+
 		if line == "\n" {
 			if commentFound {
 				fmt.Print(strings.Join(section, ""))
@@ -68,11 +74,6 @@ func main() {
 			section = make([]string, 0)
 		} else {
 			section = append(section, line)
-		}
-
-		matches := reComment.FindStringSubmatch(line)
-		if len(matches) > 0 && matches[1] == args["<comment-id>"].(string) {
-			commentFound = true
 		}
 	}
 }
